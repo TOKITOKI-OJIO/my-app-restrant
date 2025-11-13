@@ -1,0 +1,18 @@
+@import '../../../style/index.less';
+
+@last-days-prefix-cls: ~'@{prefix}-last-days';
+.@{last-days-prefix-cls} {
+  display: flex;
+
+  &-picker {
+    display: flex;
+
+    .date-time-picker {
+      display: flex;
+    }
+
+    .calendar {
+      font-size: 16px;
+    }
+  }
+}

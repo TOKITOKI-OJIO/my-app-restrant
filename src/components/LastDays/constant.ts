@@ -1,0 +1,17 @@
+export const UNIT_MAP = {
+  y: '年',
+  M: '月',
+  w: '周',
+  d: '天',
+  h: '小时',
+  m: '分钟',
+  s: '秒',
+  year: '年',
+  month: '月',
+  week: '周',
+  day: '天',
+  hour: '小时',
+  minute: '分钟',
+  second: '秒',
+  default: '天',
+};
