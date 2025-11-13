@@ -1,10 +1,8 @@
-import logo from "./logo.svg";
-import * as React from "react";
-import "./App.css";
-import NavBar from "./NavBar/NavBar";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import { routes } from "./Route/index";
-import { useHistory } from "react-router-dom";
+import * as React from 'react';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { routes } from '../Route/index';
+import { useHistory } from 'react-router-dom';
+import './index.less';
 // 获取平铺的路由数组
 export const getFlatRoutes = (routesArr) => {
   return routesArr.reduce((flatArr, cur) => {
@@ -12,7 +10,7 @@ export const getFlatRoutes = (routesArr) => {
     if (cur.children && cur.children.length) {
       const child = cur.children;
       child.map((item) => {
-        return (item["parentKey"] = cur.key);
+        return (item['parentKey'] = cur.key);
       });
       const res = getFlatRoutes(child);
       flatArr.push(...res);
@@ -31,31 +29,34 @@ function App() {
   const flattenRoutes = getFlatRoutes(routes);
   const history = useHistory();
 
+  const [key, setKey] = React.useState(1);
   // 点击菜单跳转
-  const clickMenu = (key) => {
-    console.log(key, "kkk");
+  const clickMenu = (url) => {
+    console.log(key, 'kkk');
 
-    history.push(key);
+    setKey(key + 1);
+    history.push(url);
   };
 
+  console.log('flattenRoutes', flattenRoutes);
+
   return (
-    <div className="App">
-      <NavBar clickMenu={clickMenu}></NavBar>
-      <Router>
+    <Router>
+      <div className="web-site-app" data-user-loaded id={'web-site-app'}>
         <Switch>
           {flattenRoutes.map((route) => {
             return (
               <Route
                 exact
-                key={route.key}
+                key={route.key + key}
                 path={route.key}
                 component={route.component}
               />
             );
           })}
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

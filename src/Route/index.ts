@@ -1,7 +1,6 @@
-import Main from "../components/Main/Main";
-import About from "../components/About/About";
+import * as React from 'react';
 
-const routePrefix = "";
+
 
 export type IRoute = {
   name: string;
@@ -15,21 +14,12 @@ export type IRoute = {
   level?: number;
   [prop: string]: any;
 };
+import Main from '@/pages/main';
 
 export const routes: IRoute[] = [
   {
-    name: "main",
-    key: `${routePrefix}/index`,
+    name: 'main',
+    key: ``,
     component: Main,
-  },
-  {
-    name: "main",
-    key: `${routePrefix}/main`,
-    component: Main,
-  },
-  {
-    name: "about",
-    key: `${routePrefix}/about`,
-    component: About,
   },
 ];

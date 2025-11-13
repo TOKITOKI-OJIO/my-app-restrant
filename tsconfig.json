@@ -1,21 +1,31 @@
 {
-  "extends": "./tsconfig-base.json",
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "jsx": "react",
+    "module": "commonjs",
+    // "suppressImplicitAnyIndexErrors": true,
+    "outDir": "./build",
+    "sourceMap": false,
+    "allowJs": true, // allowJs=true => tsc compile js as module, no type check
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noEmit": true,
     "noImplicitAny": false,
+    "noImplicitThis": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["dom", "esnext", "DOM.Iterable"],
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
+
       "react": ["./node_modules/@types/react"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "src/react-app-env.d.ts"],
+  "exclude": ["node_modules", "webpack", "build"]
 }

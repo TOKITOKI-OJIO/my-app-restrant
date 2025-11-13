@@ -1,0 +1,111 @@
+.web-site-app {
+  overflow: auto;
+  min-width: 1280px;
+  height: 100vh;
+
+  .arco-typography {
+    color: #221714;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .see-more {
+    color: rgba(34, 23, 20, 0.6);
+
+    &:hover {
+      color: rgba(34, 23, 20, 100%);
+    }
+  }
+}
+
+div.plugin__topbar-userMenu {
+  min-width: 200px;
+  border-radius: 8px;
+  background-color: var(--color-bg-1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 10%);
+
+  div.displayName {
+    font-size: 14px;
+    color: #163370;
+    cursor: auto;
+
+    .title {
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 18px;
+      letter-spacing: 0;
+      color: var(--color-text-3);
+      padding-top: 20px;
+      margin-bottom: 4px;
+    }
+
+    .name {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 20px;
+      letter-spacing: 0;
+      color: var(--color-text-1);
+      padding-bottom: 14px;
+      margin-bottom: 0;
+    }
+  }
+
+  .arco-menu-inner .logout.arco-menu-item {
+    margin-bottom: 11px !important;
+  }
+
+  .dropdown-icon {
+    margin-right: 4px !important;
+    font-size: 14px;
+    vertical-align: text-bottom;
+  }
+
+  .arco-menu-vertical .arco-menu-inner {
+    padding: 0 16px;
+
+    .logout {
+      margin-top: 6px !important;
+    }
+  }
+
+  .arco-menu-vertical.arco-menu-light.arco-menu-inline-header[aria-expanded='true'] {
+    margin: 0 !important;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+  }
+
+  .arco-menu-vertical.arco-menu-light .arco-menu-inline-header {
+    margin: 0;
+    padding: 0 !important;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+  }
+
+  .arco-menu-vertical.arco-menu-light .arco-menu-item {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+
+    &.arco-menu-selected {
+      background-color: inherit;
+    }
+  }
+
+  .arco-menu .arco-menu-inline-header .arco-icon {
+    margin-right: 7px;
+  }
+
+  .arco-menu-indent {
+    width: 3px;
+  }
+
+  .arco-menu-vertical .arco-menu-inline-header .arco-menu-icon-suffix {
+    right: 0;
+  }
+}

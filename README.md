@@ -1,70 +1,292 @@
-# Getting Started with Create React App
+[从零开始使用webpack构建react + ts前端项目 - 简书 (jianshu.com)](https://www.jianshu.com/p/51f8ba9704b1)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 1.1创建文件夹
 
-## Available Scripts
+右键-新建-文件夹 重命名为react-ts-project
+ 创建好后双击进入该文件夹
 
-In the project directory, you can run:
+或者  命令行执行
+ `mkdir react-ts-project`
+ `cd react-ts-project`
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1.2项目初始化
 
-### `npm test`
+执行`npm init -y`初始化
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+打开package.json，在script里增加
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+```
+{
+  "name": "react-ts-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open --mode development",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 依赖安装
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`yarn  add webpack webpack-cli webpack-dev-server react react-dom typescript esbuild-loader html-loader html-webpack-plugin`
+ 安装本项目所需依
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 3.编写webpack.config.js
 
-## Learn More
+```
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+module.exports = {
+    entry: "./src/main.tsx", //入口文件
+    output: {  //输出路径和文件名
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "dist")
+    },
+    module: {
+        rules: [
+            {
+                test: /\.html$/, //使用html-loader
+                use: [
+                    {
+                        loader: "html-loader"
+                    }
+                ]
+            },
+            {
+                test: /\.(js|ts|jsx|tsx)$/, //使用esbuild-loader将js、ts、jsx、tsx文件内容转换为es2015
+                include: path.appSrc,
+                use: [
+                    {
+                        loader: "esbuild-loader",
+                        options: {
+                            loader: "tsx",
+                            target: "es2015",
+                        },
+                    }
+                ]
+            }
+        ]
+    },
+    plugins: [ //使用插件，这里使用了HtmlWebPackPlugin
+        new HtmlWebPackPlugin({
+            title: "react-ts-project",
+            filename: "./index.html",
+            template: "./public/index.html"
+        })
+    ]
+};
+```
 
-### Code Splitting
+## 4.编写tsconfig.json
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    // "suppressImplicitAnyIndexErrors": true,
+    "outDir": "./build",
+    "sourceMap": false,
+    "allowJs": true, // allowJs=true => tsc compile js as module, no type check
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "allowImportingTsExtensions": true,
+    "lib": [
+      "dom",
+      "esnext",
+      "DOM.Iterable"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@api/*": [
+        "./src/api"
+      ],
+      "@src/*": [
+        "./src/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@styles": [
+        "./src/styles"
+      ]
+    }
+  },
+  "include": [
+    "src",
+  ],
+  "exclude": [
+    "node_modules",
+    "webpack",
+    "build",
+  ]
+}
 
-### Analyzing the Bundle Size
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 5.编写项目
 
-### Advanced Configuration
+首先在根目录下新建src文件夹、public文件夹，在public文件夹内新建index.html文件，文件内容如下
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-ts-project</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
+```
 
-### `npm run build` fails to minify
+在src文件下新建main.tsx文件，文件内容如下
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App.tsx";
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById("app")
+);
+```
+
+新建app.tsx文件，文件内容如下
+
+```
+import React, { useState } from "react";
+
+function App() {
+
+  return (
+    <div>hello react + ts</div>
+  );
+}
+
+export default App;
+
+```
+
+
+
+
+
+添加css loader
+
+```
+yarn  add style-loader
+npm install  css-loader less-loader less
+```
+
+webpack.js中添加
+
+```
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
+      }
+    ]
+  }
+  // ...
+};
+```
+
+webpack添加
+
+```
+
+  resolve: {
+    extensions: [".js", ".jsx", "ts", "tsx"], // 自动解析这些扩展名
+  },
+```
+
+
+
+
+
+添加urlloader
+
+```
+yarn  add url-loader
+
+{
+    test: /\.(png|jpg|gif|svg)$/,
+    loader: "url-loader",
+    options: {
+        limit:1024000,
+        name: "[name].[ext]?[hash]"
+    }
+}
+```
+
+
+
+添加svg 解析
+
+```
+ npm  i @svgr/webpack
+  
+```
+
+
+
+package.json 添加
+
+```
+   "@arco-design/web-react": "2.61.0",
+    "@arco-themes/react-ocean-design": "^0.0.56",
+    "@ccf2e/arco-material": "^1.2.1",
+    "axios": "^0.24.0",
+    "dayjs": "^1.11.7",
+    
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0",
+```
+
