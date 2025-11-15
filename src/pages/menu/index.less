@@ -1,0 +1,129 @@
+/* 页面主容器 */
+.page-container {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background: #f9f9f9;
+  font-size: 14rem;
+  /* 通用字体 (14rem) */
+}
+
+@category-list-width: 67rem;
+
+/* 左侧分类栏 */
+.category-list {
+  width: @category-list-width;
+  /* 约 67rem */
+  background: #fff;
+  border-right: 1rem solid #eee;
+  overflow-y: auto;
+}
+
+.category-item {
+  padding: 16rem 8rem;
+  text-align: center;
+  color: #666;
+  font-size: 14.4rem;
+  /* 0.9rem */
+  border-left: 4rem solid transparent;
+}
+
+.category-item.active {
+  color: #000;
+  font-weight: 600;
+  border-left: 6rem solid #f9b620;
+  /* 黄色 */
+  background: #fafafa;
+}
+
+/* 商品列表 */
+.product-list {
+  width: calc(100% - @category-list-width);
+  padding: 12.8rem;
+  overflow-y: auto;
+}
+
+.product-header {
+  font-size: 17.6rem;
+  /* 1.1rem */
+  font-weight: 600;
+  padding: 9.6rem 0;
+  color: #333;
+}
+
+/* 商品项 */
+.product-item {
+  display: flex;
+  padding: 16rem 0;
+  border-bottom: 1rem solid #eee;
+}
+
+.product-img {
+  width: 72rem;
+  /* 4.5rem */
+  height: 72rem;
+  /* 4.5rem */
+  border-radius: 6.4rem;
+  /* 0.4rem */
+  margin-right: 12.8rem;
+  /* 0.8rem */
+  object-fit: cover;
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 标题 */
+.product-title {
+  font-size: 16rem;
+  /* 1rem */
+  font-weight: 600;
+  color: #333;
+}
+
+/* 描述 */
+.product-desc {
+  margin-top: 4.8rem;
+  /* 0.3rem */
+  font-size: 12rem;
+  /* 0.75rem */
+  color: #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 底部价格 + 按钮 */
+.product-bottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  color: #e64340;
+  font-size: 16rem;
+  /* 1rem */
+  font-weight: 600;
+}
+
+/* + 加按钮 */
+.add-btn {
+  width: 28.8rem;
+  /* 1.8rem */
+  height: 28.8rem;
+  /* 1.8rem */
+  background: #ff4d4f;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 28.8rem;
+  /* 1.8rem */
+  font-size: 19.2rem;
+  /* 1.3rem */
+}

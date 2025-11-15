@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-
-
 export type IRoute = {
   name: string;
   key: string;
@@ -15,11 +13,12 @@ export type IRoute = {
   [prop: string]: any;
 };
 import Main from '@/pages/main';
+import Menu from '@/pages/menu';
 
 export const routes: IRoute[] = [
   {
     name: 'main',
     key: ``,
-    component: Main,
+    component: Menu,
   },
 ];

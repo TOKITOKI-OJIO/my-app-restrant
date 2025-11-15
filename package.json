@@ -14,8 +14,13 @@
   "dependencies": {
     "@arco-design/web-react": "2.61.0",
     "@arco-themes/react-cecloud-design": "1.0.61",
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@svgr/webpack": "^8.1.0",
     "axios": "^0.24.0",
+    "babel-loader": "^10.0.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.7",
     "esbuild-loader": "^4.2.2",
@@ -29,7 +34,7 @@
     "react-router": "5.2.0",
     "react-router-dom": "^5.2.0",
     "style-loader": "^4.0.0",
-    "typescript": "^5.6.3",
+    "typescript": "^5.9.3",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"

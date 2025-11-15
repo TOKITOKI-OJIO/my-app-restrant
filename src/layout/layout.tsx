@@ -3,6 +3,7 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { routes } from '../Route/index';
 import { useHistory } from 'react-router-dom';
 import './index.less';
+import NavBar from '@/navbar';
 // 获取平铺的路由数组
 export const getFlatRoutes = (routesArr) => {
   return routesArr.reduce((flatArr, cur) => {
@@ -29,32 +30,26 @@ function App() {
   const flattenRoutes = getFlatRoutes(routes);
   const history = useHistory();
 
-  const [key, setKey] = React.useState(1);
-  // 点击菜单跳转
-  const clickMenu = (url) => {
-    console.log(key, 'kkk');
-
-    setKey(key + 1);
-    history.push(url);
-  };
-
-  console.log('flattenRoutes', flattenRoutes);
-
   return (
     <Router>
-      <div className="web-site-app" data-user-loaded id={'web-site-app'}>
-        <Switch>
-          {flattenRoutes.map((route) => {
-            return (
-              <Route
-                exact
-                key={route.key + key}
-                path={route.key}
-                component={route.component}
-              />
-            );
-          })}
-        </Switch>
+      <div className="my-restrant-app">
+        <div className="app-content">
+          <Switch>
+            {flattenRoutes.map((route) => {
+              return (
+                <Route
+                  exact
+                  key={route.key}
+                  path={route.key}
+                  component={route.component}
+                />
+              );
+            })}
+          </Switch>
+        </div>
+        <div className="app-bottombar">
+          <NavBar></NavBar>
+        </div>
       </div>
     </Router>
   );

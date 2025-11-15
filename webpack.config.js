@@ -22,6 +22,7 @@ module.exports = (env, argv) => {
         '@images': path.resolve(__dirname, 'src/images'),
       },
     },
+    devtool: 'source-map',
     module: {
       rules: [
         {
