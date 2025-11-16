@@ -1,35 +1,83 @@
 /* 大多数浏览器默认 */
 @rate: 0.3; // 文字与图标间距
+@rate_landscape: 0.1; // 文字与图标间距
 
-/* 基础设置 */
-html {
-  font-size: @rate * 62.5%;
-  /* 10px */
-}
+@media (max-aspect-ratio: 1/1) {
+  /* 竖屏 */
 
-/* 平板 */
-@media (max-width: 768px) {
+
+
+  /* 基础设置 */
   html {
-    font-size: @rate * 56.25%;
-    /* 9px */
+    font-size: @rate * 62.5%;
+    /* 10px */
+  }
+
+  /* 手机 */
+  @media (max-width: 480px) {
+    html {
+      font-size: @rate * 20%;
+      /* 8px */
+    }
+  }
+
+  /* 平板 */
+  @media (max-width: 768px) {
+    html {
+      font-size: @rate * 36.25%;
+      /* 9px */
+    }
+  }
+
+
+
+  /* 大屏幕 */
+  @media (min-width: 1200px) {
+    html {
+      font-size: @rate * 65%;
+      /* 12px */
+    }
   }
 }
 
-/* 手机 */
-@media (max-width: 480px) {
+
+@media (min-aspect-ratio: 1/1) {
+  /* 横屏 */
+
+
+
+  /* 基础设置 */
   html {
-    font-size: @rate * 50%;
-    /* 8px */
+    font-size: @rate_landscape * 62.5%;
+    /* 10px */
+  }
+
+  /* 平板 */
+  @media (max-width: 768px) {
+    html {
+      font-size: @rate_landscape * 56.25%;
+      /* 9px */
+    }
+  }
+
+  /* 手机 */
+  @media (max-width: 480px) {
+    html {
+      font-size: @rate_landscape * 50%;
+      /* 8px */
+    }
+  }
+
+  /* 大屏幕 */
+  @media (min-width: 1200px) {
+    html {
+      font-size: @rate_landscape * 75%;
+      /* 12px */
+    }
   }
 }
 
-/* 大屏幕 */
-@media (min-width: 1200px) {
-  html {
-    font-size: @rate * 75%;
-    /* 12px */
-  }
-}
+
 
 #root {
   height: 100vh;

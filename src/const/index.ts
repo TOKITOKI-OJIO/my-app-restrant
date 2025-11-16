@@ -450,3 +450,5 @@ export const menu = [
     price: 0,
   },
 ];
+
+export const types = ['肉类', '蔬菜', '海鲜', '汤', '主食', '其他'];
