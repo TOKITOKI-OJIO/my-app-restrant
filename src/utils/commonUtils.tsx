@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import { Spin } from '@arco-design/web-react';
 import React from 'react';
 import '@ccf2e/arco-material/lib/style/css.js';
-import { IconFont } from '@ccf2e/arco-material';
 
 let centerRegionId = ''; // 中心云管所在的regionId
 

@@ -21,4 +21,14 @@ export const routes: IRoute[] = [
     key: ``,
     component: Menu,
   },
+  {
+    name: 'main',
+    key: `/menu`,
+    component: Menu,
+  },
+  {
+    name: 'main',
+    key: `/menu/detail`,
+    component: Main,
+  },
 ];

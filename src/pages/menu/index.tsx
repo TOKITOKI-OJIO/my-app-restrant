@@ -1,32 +1,56 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './index.less';
 import { set } from 'lodash';
-import { menu, types } from '@/const';
+import {
+  menuItems as menuItemsConst,
+  categorys as categorysConst,
+} from '@/const';
 import { get } from 'lodash';
+import { menuApi } from '@/api';
 
 export default function ProductPage() {
   const [activeCategory, setActiveCategory] = useState('meat');
 
-  const categories = useMemo(() => {
-    return types;
-  }, menu);
+  const [menuItems, setMenuItems] = useState([]);
 
-  const typeProducts = useMemo(() => {
+  const categories = useMemo(() => {
+    if (menuItems.length === 0) {
+      return categorysConst;
+    }
+    const categories = menuItems.map((item) => item.category);
+    return [...new Set(categories)];
+  }, menuItems);
+
+  const categoryProducts = useMemo(() => {
     const products: any = { no: [] } as any;
-    menu.forEach((item) => {
-      const list = get(products, item.type, []);
+    console.log(menuItems, 'menuItems');
+    menuItems.forEach((item) => {
+      const list = get(products, item.category, []);
       if (list?.length > 0) {
         list.push(item);
-        set(products, item.type, list);
+        set(products, item.category, list);
       } else {
-        set(products, item.type, [item]);
+        set(products, item.category, [item]);
       }
     });
     return products;
-  }, menu);
+  }, [menuItems]);
 
   const sectionRefs = useRef({});
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    menuApi
+      .getAllMenuItems()
+      .then((res) => {
+        console.log(res, 'res');
+        setMenuItems(res);
+      })
+      .catch((err) => {
+        setMenuItems(menuItemsConst);
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,10 +65,12 @@ export default function ProductPage() {
         root: scrollRef.current, // 右侧滚动容器
         threshold: [0.5], // 可见面积超过 50% 才认为进入该分类
         rootMargin: '0px 0px -50% 0px', // 让判断更稳定（防止 sticky 抢占）
-      }
+      },
     );
 
-    Object.values(sectionRefs.current).forEach((el) => observer.observe(el));
+    Object.values(sectionRefs.current).forEach((el: any) =>
+      observer.observe(el),
+    );
 
     return () => observer.disconnect();
   }, []);
@@ -53,42 +79,45 @@ export default function ProductPage() {
     <div className="page-container">
       {/* 左侧分类 */}
       <div className="category-list">
-        {categories.map((type) => (
+        {categories.map((category) => (
           <div
-            key={type}
+            key={category}
             className={`category-item ${
-              activeCategory === type ? 'active' : ''
+              activeCategory === category ? 'active' : ''
             }`}
             onClick={() => {
-              setActiveCategory(type);
+              setActiveCategory(category);
               document
-                .querySelector(`#product-section-${type}`)
+                .querySelector(`#product-section-${category}`)
                 .scrollIntoView({
                   behavior: 'smooth',
                   block: 'start',
                 });
             }}
           >
-            {type}
+            {category}
           </div>
         ))}
       </div>
 
       {/* 商品列表 */}
       <div className="product-list" ref={scrollRef}>
-        {types.map((type) => {
-          const list = typeProducts[`${type}`] || [];
+        {categorysConst.map((category) => {
+          const list = categoryProducts[`${category}`] || [];
           if (list.length) {
-            const type = list[0].type;
+            const category = list[0].category;
 
             return (
-              <div className="product-section" id={`product-section-${type}`}>
+              <div
+                className="product-section"
+                id={`product-section-${category}`}
+              >
                 <div
                   className="product-header product-sticky"
-                  id={`${type}`}
-                  ref={(el) => (sectionRefs.current[type] = el)}
+                  id={`${category}`}
+                  ref={(el) => (sectionRefs.current[category] = el)}
                 >
-                  {type}
+                  {category}
                 </div>
                 {list.map((item, index) => {
                   return (
@@ -96,17 +125,17 @@ export default function ProductPage() {
                       <div
                         className="product-item"
                         key={item.id}
-                        id={`product-header-${type}-${index}`}
+                        id={`product-header-${category}-${index}`}
                       >
                         <img
                           className="product-img"
-                          src={item.pictures[0] || ''}
+                          src={get(item, 'pictures.0.url', '') || ''}
                           alt=""
                         />
 
                         <div className="product-info">
                           <div className="product-title">{item.name}</div>
-                          <div className="product-desc">{item.recipe}</div>
+                          <div className="product-desc">{item.description}</div>
 
                           <div className="product-bottom">
                             <div className="price">¥{item.price}</div>

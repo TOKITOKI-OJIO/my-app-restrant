@@ -15,25 +15,7 @@ export function Valiate() {
     required: true,
     message: t('SelectCannotBeEmpty'),
   };
-  const nameRule = (value: any, callback: any, showTip = false) => {
-    if (value) {
-      const nameReg = /^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5\5A-Za-z0-9-\_\.]*$/;
-      const strLen = value.replace(/[^\x00-\xff]/g, 'aa').length;
-      if (!nameReg.test(value) || strLen > 127) {
-        if (showTip) {
-          return callback(`${t('NameRuleErrorTip')},${t('oss.lifeCycleTip')}`);
-        }
-        return callback(t('NameRuleErrorTip'));
-      } else {
-        if (strLen < 1 || strLen > 127) {
-          return callback(t('NameLengthErrorTip'));
-        } else {
-          return callback();
-        }
-      }
-    }
-    return callback();
-  };
+
   const descRule = (value: any, callback: any) => {
     const strLen = value && value.replace(/[^\x00-\xff]/g, 'aa').length;
     if (value) {
@@ -314,7 +296,6 @@ export function Valiate() {
     requiredSelectRule,
     ipv4MaskRule,
     ipv4MaskRulePort,
-    nameRule,
     descRule,
     macRule,
     ipv4Rule,
