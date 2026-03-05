@@ -20,8 +20,8 @@ func InitDB() (*gorm.DB, error) {
 		log.Println("Warning: .env file not found, using environment variables")
 	}
 
-	dbHost := getEnv("DB_HOST", "127.0.0.1")
-	dbPort := getEnv("DB_PORT", "3306")
+	dbHost := getEnv("DB_HOST", "123.56.20.210")
+	dbPort := getEnv("DB_PORT", "33061")
 	dbUser := getEnv("DB_USER", "root")
 	dbPassword := getEnv("DB_PASSWORD", "password")
 	dbName := getEnv("DB_NAME", "restaurant_db")

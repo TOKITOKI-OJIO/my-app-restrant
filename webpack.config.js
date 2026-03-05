@@ -109,5 +109,9 @@ module.exports = (env, argv) => {
         template: './public/index.html',
       }),
     ],
+    devServer: {
+      historyApiFallback: true,
+      port: 8080,
+    },
   };
 };

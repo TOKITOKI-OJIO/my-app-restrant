@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { routes } from '../Route/index';
-import { useHistory } from 'react-router-dom';
 import './index.less';
 import NavBar from '@/navbar';
 // 获取平铺的路由数组
@@ -28,8 +27,7 @@ export const useQueryParams = () => {
 function App() {
   // 路由数组
   const flattenRoutes = getFlatRoutes(routes);
-  const history = useHistory();
-
+  console.log(flattenRoutes, 'flattenRoutes');
   return (
     <Router>
       <div className="my-restrant-app">

@@ -12,23 +12,35 @@ export type IRoute = {
   level?: number;
   [prop: string]: any;
 };
-import Main from '@/pages/main';
+import Main from '@/pages/main.tsx';
+import Order from '@/pages/order/main.tsx';
 import Menu from '@/pages/menu';
+import Manage from '@/pages/manage';
 
 export const routes: IRoute[] = [
   {
     name: 'main',
-    key: ``,
+    key: `/`,
     component: Menu,
   },
   {
-    name: 'main',
+    name: 'menu',
     key: `/menu`,
     component: Menu,
   },
   {
-    name: 'main',
+    name: 'menu-detail',
     key: `/menu/detail`,
     component: Main,
+  },
+  {
+    name: 'order',
+    key: `/order`,
+    component: Order,
+  },
+  {
+    name: 'manage',
+    key: `/mine`,
+    component: Manage,
   },
 ];
