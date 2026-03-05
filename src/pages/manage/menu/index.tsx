@@ -14,6 +14,7 @@ import {
   Tag,
   Alert,
   Skeleton,
+  InputNumber,
 } from '@arco-design/web-react';
 import { menuApi, menuImageApi } from '@/api';
 import { MenuItem, MenuImage } from '@/api/types';
@@ -259,26 +260,33 @@ const MenuManagement: React.FC = () => {
           </Button>
         }
       >
-        <div style={{ marginBottom: 20, display: 'flex', gap: 10 }}>
-          <Search
-            placeholder="搜索菜单名称"
-            style={{ width: 300 }}
-            value={searchText}
-            onChange={(e) => setSearchText(e)}
-          />
-          <Select
-            placeholder="选择分类"
-            style={{ width: 150 }}
-            value={categoryFilter}
-            onChange={(value) => setCategoryFilter(value)}
-          >
-            <Option value="">全部</Option>
-            {categories.map((cat) => (
-              <Option key={cat} value={cat}>
-                {cat}
-              </Option>
-            ))}
-          </Select>
+        <div style={{ marginBottom: 20, display: 'flex', gap: 10 , justifyContent: 'space-between'}}>
+          <div>
+            <Search
+              placeholder="搜索菜单名称"
+              style={{ width: 300 }}
+              value={searchText}
+              onChange={(e) => setSearchText(e)}
+            />
+            <Select
+              placeholder="选择分类"
+              style={{ width: 150 }}
+              value={categoryFilter}
+              onChange={(value) => setCategoryFilter(value)}
+            >
+              <Option value="">全部</Option>
+              {categories.map((cat) => (
+                <Option key={cat} value={cat}>
+                  {cat}
+                </Option>
+              ))}
+            </Select>
+          </div>
+          <div>
+            <Button type="primary" onClick={() => fetchMenuItems()}>
+              刷新
+            </Button>
+          </div>
         </div>
 
         {loading ? (
@@ -327,7 +335,7 @@ const MenuManagement: React.FC = () => {
             field="price"
             rules={[{ required: true, message: '请输入价格' }]}
           >
-            <Input type="number" placeholder="请输入价格" />
+            <InputNumber type="number" placeholder="请输入价格" />
           </Form.Item>
 
           <Form.Item
@@ -346,8 +354,8 @@ const MenuManagement: React.FC = () => {
 
           <Form.Item label="状态" field="available">
             <Select placeholder="请选择状态">
-              <Option value={'true'}>在售</Option>
-              <Option value={'false'}>下架</Option>
+              <Option value={true}>在售</Option>
+              <Option value={false}>下架</Option>
             </Select>
           </Form.Item>
 

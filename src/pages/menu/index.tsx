@@ -53,27 +53,33 @@ export default function ProductPage() {
   }, []);
 
   useEffect(() => {
+    if (!scrollRef.current || Object.keys(sectionRefs.current).length === 0) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.intersectionRatio > 0.5) {
-            setActiveCategory(entry.target.id); // 高亮左侧
+          if (entry.intersectionRatio > 0) {
+            setActiveCategory(entry.target.id);
           }
         });
       },
       {
         root: scrollRef.current, // 右侧滚动容器
-        threshold: [0.5], // 可见面积超过 50% 才认为进入该分类
+        threshold: [0.8], // 可见面积超过 80% 才认为进入该分类
         rootMargin: '0px 0px -50% 0px', // 让判断更稳定（防止 sticky 抢占）
       },
     );
 
-    Object.values(sectionRefs.current).forEach((el: any) =>
-      observer.observe(el),
-    );
+    Object.values(sectionRefs.current).forEach((el: any) => {
+      if (el) {
+        observer.observe(el);
+      }
+    });
 
     return () => observer.disconnect();
-  }, []);
+  }, [menuItems]);
 
   return (
     <div className="page-container">

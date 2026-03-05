@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"my-app-restrant/backend/models"
 
@@ -49,6 +50,10 @@ func (h *MenuHandler) CreateMenuItem(c *gin.Context) {
 		return
 	}
 
+	// 确保创建时间字段填充当前时间
+	item.CreatedAt = time.Now()
+	item.UpdatedAt = time.Now()
+
 	if err := h.DB.Create(&item).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -69,10 +74,18 @@ func (h *MenuHandler) UpdateMenuItem(c *gin.Context) {
 		return
 	}
 
+	// 保存原始创建时间
+	originalCreatedAt := item.CreatedAt
+
 	if err := c.ShouldBindJSON(&item); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	// 保持原有创建时间
+	item.CreatedAt = originalCreatedAt
+	// 更新时间字段填充当前时间
+	item.UpdatedAt = time.Now()
 
 	if err := h.DB.Save(&item).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
