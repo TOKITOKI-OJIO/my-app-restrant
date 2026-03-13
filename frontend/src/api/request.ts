@@ -2,9 +2,10 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } f
 import { Message } from '@arco-design/web-react';
 
 const BASE_URL = 'http://127.0.0.1:8081';
+const hostname = window.location.hostname;
 
 const request: AxiosInstance = axios.create({
-  baseURL: `${BASE_URL}/api/v1`,
+  baseURL: `http://${hostname}:8081/api/v1`,
   timeout: 60000,
   headers: {
     'Content-Type': 'application/json',

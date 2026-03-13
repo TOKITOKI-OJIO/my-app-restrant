@@ -22,3 +22,8 @@ docker run -d \
 endpoint := "123.56.20.210:9000" // MinIO 服务地址
 accessKey := "your-access-key" // 访问密钥
 secretKey := "your-secret-key" // 密钥
+
+
+
+docker run -d -p 8080:80 restaurant-front:latest 
+docker run -d -p 8081:8081 restaurant-backend:latest 

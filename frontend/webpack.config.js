@@ -6,7 +6,8 @@ module.exports = (env, argv) => {
   if (argv.mode === 'development') {
     publicPath = '/';
   } else if (argv.mode === 'production') {
-    publicPath = './webfile/react/';
+    // publicPath = './webfile/react/';
+    publicPath = './';
     // publicPath = '/beijing/webfile/react/';
   }
   return {
