@@ -7,9 +7,11 @@ import {
 } from '@/const';
 import { get } from 'lodash';
 import { menuApi } from '@/api';
+import { useHistory } from 'react-router-dom';
 
 export default function ProductPage() {
   const [activeCategory, setActiveCategory] = useState('meat');
+  const history = useHistory();
 
   const [menuItems, setMenuItems] = useState([]);
 
@@ -126,18 +128,24 @@ export default function ProductPage() {
                   {category}
                 </div>
                 {list.map((item, index) => {
+                  let imageUrl = '';
+                  if (item.image_url && item.images) {
+                    const mainImage = item.images.find(
+                      (img) => String(img.id) === String(item.image_url),
+                    );
+                    imageUrl = mainImage ? mainImage.url : '';
+                  }
                   return (
                     <>
                       <div
                         className="product-item"
                         key={item.id}
                         id={`product-header-${category}-${index}`}
+                        onClick={() => {
+                          history.push(`/menu/detail?id=${item.id}`);
+                        }}
                       >
-                        <img
-                          className="product-img"
-                          src={get(item, 'pictures.0.url', '') || ''}
-                          alt=""
-                        />
+                        <img className="product-img" src={imageUrl} alt="" />
 
                         <div className="product-info">
                           <div className="product-title">{item.name}</div>

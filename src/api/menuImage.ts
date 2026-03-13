@@ -10,8 +10,12 @@ export const menuImageApi = {
     return request.get(`/menu-images/${id}`);
   },
 
-  createMenuImage: (data: Partial<MenuImage>): Promise<MenuImage> => {
-    return request.post('/menu-images', data);
+  createMenuImage: (data: any): Promise<MenuImage> => {
+    return request.post('/menu-images', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 
   updateMenuImage: (id: number, data: Partial<MenuImage>): Promise<MenuImage> => {

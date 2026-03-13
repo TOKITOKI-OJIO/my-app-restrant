@@ -132,19 +132,15 @@ const MenuManagement: React.FC = () => {
         return;
       }
 
-      // 这里应该上传到服务器，暂时使用模拟数据
-      const mockImage: MenuImage = {
-        id: Date.now(),
-        menu_item_id: currentItem.id,
-        url: URL.createObjectURL(file),
-        sorter: images.length + 1,
-        is_primary: images.length === 0,
-        name: file.name,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
+      // 使用 FormData 上传文件
+      const formData = new FormData();
+      formData.append('menu_item_id', currentItem.id.toString());
+      formData.append('name', file.name);
+      formData.append('sorter', (images.length + 1).toString());
+      formData.append('is_primary', (images.length === 0).toString());
+      formData.append('file', file);
 
-      const newImage = await menuImageApi.createMenuImage(mockImage);
+      const newImage = await menuImageApi.createMenuImage(formData);
       setImages([...images, newImage]);
       Message.success('图片上传成功');
     } catch (error) {
@@ -260,7 +256,14 @@ const MenuManagement: React.FC = () => {
           </Button>
         }
       >
-        <div style={{ marginBottom: 20, display: 'flex', gap: 10 , justifyContent: 'space-between'}}>
+        <div
+          style={{
+            marginBottom: 20,
+            display: 'flex',
+            gap: 10,
+            justifyContent: 'space-between',
+          }}
+        >
           <div>
             <Search
               placeholder="搜索菜单名称"
@@ -373,23 +376,25 @@ const MenuManagement: React.FC = () => {
             {images.length > 0 ? (
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {images.map((image) => (
-                  <div
-                    key={image.id}
-                    style={{ position: 'relative', width: 100, height: 100 }}
-                  >
-                    <img
-                      src={image.url}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                      alt={image.name}
-                    />
+                  <div style={{ position: 'relative' }}>
+                    <div
+                      key={image.id}
+                      style={{ position: 'relative', width: 100, height: 100 }}
+                    >
+                      <img
+                        src={image.url}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                        alt={image.name}
+                      />
+                    </div>
                     <div
                       style={{
                         position: 'absolute',
-                        top: 0,
+                        bottom: -20,
                         right: 0,
                         background: 'rgba(0,0,0,0.5)',
                         padding: 2,

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -35,8 +36,11 @@ func (h *MenuHandler) GetMenuItem(c *gin.Context) {
 		return
 	}
 
+	// 打印 id 和 uint(id) 的值
+	fmt.Printf("GetMenuItem - id: %d, uint(id): %d\n", id, uint(id))
+
 	var item models.MenuItem
-	if err := h.DB.Preload("Images").Order("sorter ASC").First(&item, uint(id)).Error; err != nil {
+	if err := h.DB.Preload("Images").First(&item, uint(id)).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Menu item not found"})
 		return
 	}

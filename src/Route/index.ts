@@ -16,6 +16,7 @@ import Main from '@/pages/main.tsx';
 import Order from '@/pages/order/main.tsx';
 import Menu from '@/pages/menu';
 import Manage from '@/pages/manage';
+import MenuDetail from '@/pages/menu/detail';
 
 export const routes: IRoute[] = [
   {
@@ -31,7 +32,7 @@ export const routes: IRoute[] = [
   {
     name: 'menu-detail',
     key: `/menu/detail`,
-    component: Main,
+    component: MenuDetail,
   },
   {
     name: 'order',

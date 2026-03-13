@@ -1,5 +1,7 @@
-import { Carousel } from '@arco-design/web-react';
-import React from 'react';
+import { menuApi } from '@/api';
+import { getUrlParams2 } from '@/utils/commonUtils';
+import { Button, Carousel } from '@arco-design/web-react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 const detail = {
   id: 'id_01',
@@ -10,17 +12,30 @@ const detail = {
   pictures: [],
   price: 0,
 };
-const imageSrc = [
-  '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp',
-  '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp',
-  '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp',
-  '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp',
-];
 
 export default function MenuDetail(props) {
+  const id = getUrlParams2().id;
+
+  const [detail, setDetail] = useState<any>({});
+
+  const imageSrc = useMemo(() => {
+    return detail?.images?.map((item) => item.url) || [];
+  }, [detail]);
+
+  useEffect(() => {
+    menuApi
+      .getMenuItem(id)
+      .then((res) => {
+        setDetail(res);
+      })
+      .catch((err) => {
+        setDetail({});
+        console.log(err);
+      });
+  }, [id]);
   return (
     <>
-      <>backBtn</>
+      <Button onClick={() => props.history.goBack()}>返回</Button>
       <Carousel
         autoPlay
         animation="fade"
@@ -33,16 +48,16 @@ export default function MenuDetail(props) {
           </div>
         ))}
       </Carousel>
-      <>{detail?.name}</>
-      <>
+      <div>{detail?.name}</div>
+      <div>
         <>{'所需食材'}</>
         {detail?.ingredients}
-      </>
-      <>
+      </div>
+      <div>
         <>{'做法'}</>
         <>{detail?.description}</>
-      </>
-      <>加菜btn</>
+      </div>
+      <Button>加菜</Button>
     </>
   );
 }

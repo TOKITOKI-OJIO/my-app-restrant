@@ -6,7 +6,7 @@ export const menuApi = {
     return request.get('/menu');
   },
 
-  getMenuItem: (id: number): Promise<MenuItem> => {
+  getMenuItem: (id): Promise<MenuItem> => {
     return request.get(`/menu/${id}`);
   },
 
