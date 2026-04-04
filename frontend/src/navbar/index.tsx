@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IconBook, IconUnorderedList, IconUser } from '@arco-design/web-react/icon';
+import { IconBook, IconUnorderedList, IconUser, IconGift } from '@arco-design/web-react/icon';
 import { useHistory, useLocation } from 'react-router-dom';
 import './index.less';
 
@@ -10,6 +10,7 @@ export default function BottomNav() {
 
   const tabs = [
     { key: 'food', label: '点餐', icon: <IconBook />, path: '/menu' },
+    { key: 'cart', label: '购物车', icon: <IconGift />, path: '/cart' },
     { key: 'order', label: '订单', icon: <IconUnorderedList />, path: '/order' },
     { key: 'mine', label: '我的', icon: <IconUser />, path: '/mine'},
   ];

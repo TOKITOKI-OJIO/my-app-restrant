@@ -1,0 +1,238 @@
+.order-page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding-bottom: 80px;
+}
+
+.order-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.page-header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* 加载状态 */
+.order-list {
+  padding: 20px;
+}
+
+.order-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* 订单头部 */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-id {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.order-time {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 订单状态 */
+.order-status {
+  padding: 8px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 菜品列表 */
+.order-items {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-items h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #333;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.item-name {
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-quantity {
+  font-size: 14px;
+  color: #666;
+  min-width: 40px;
+}
+
+.item-price {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* 订单汇总 */
+.order-summary {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.summary-item.total {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #f0f0f0;
+  font-weight: 600;
+}
+
+.summary-label {
+  color: #666;
+}
+
+.summary-value {
+  color: #333;
+}
+
+/* 订单操作 */
+.order-actions {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* 错误状态 */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .order-container {
+    max-width: 100%;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .item-info {
+    width: 100%;
+  }
+
+  .item-price {
+    align-self: flex-end;
+  }
+
+  .order-actions {
+    flex-direction: column;
+  }
+
+  .order-actions Button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 18px;
+  }
+
+  .order-list {
+    padding: 16px;
+  }
+
+  .order-header,
+  .order-status,
+  .order-items,
+  .order-summary,
+  .order-actions {
+    padding: 12px 16px;
+  }
+
+  .order-id {
+    font-size: 14px;
+  }
+
+  .order-items h3 {
+    font-size: 14px;
+  }
+
+  .summary-item {
+    font-size: 12px;
+  }
+}

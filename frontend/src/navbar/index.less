@@ -22,13 +22,14 @@
   color: #999;
   font-size: 12rem;
   /* 12px */
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.nav-item.active {
+.nav-item:active {
   color: #e0cc12;
   font-weight: 500;
 }
-
 
 .nav-item.active .nav-icon{
   color: #e0cc12;
@@ -52,4 +53,15 @@
   background: #3b82f6;
   border-radius: 999px;
   transform: translateX(-50%);
+}
+
+/* 响应式设计 */
+@media (max-width: 480rem) {
+  .nav-icon {
+    font-size: 16rem;
+  }
+
+  .nav-label {
+    font-size: 11rem;
+  }
 }

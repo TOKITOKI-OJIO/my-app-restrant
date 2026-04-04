@@ -17,6 +17,9 @@ import Order from '@/pages/order/main.tsx';
 import Menu from '@/pages/menu';
 import Manage from '@/pages/manage';
 import MenuDetail from '@/pages/menu/detail';
+import Cart from '@/pages/cart';
+import OrderConfirm from '@/pages/order/confirm';
+import OrderDetail from '@/pages/order/detail';
 
 export const routes: IRoute[] = [
   {
@@ -35,9 +38,24 @@ export const routes: IRoute[] = [
     component: MenuDetail,
   },
   {
+    name: 'cart',
+    key: `/cart`,
+    component: Cart,
+  },
+  {
+    name: 'order-confirm',
+    key: `/order/confirm`,
+    component: OrderConfirm,
+  },
+  {
     name: 'order',
     key: `/order`,
     component: Order,
+  },
+  {
+    name: 'order-detail',
+    key: `/order/:id`,
+    component: OrderDetail,
   },
   {
     name: 'manage',

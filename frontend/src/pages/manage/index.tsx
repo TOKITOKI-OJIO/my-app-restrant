@@ -12,8 +12,10 @@ import {
   IconUser,
   IconHome,
   IconSettings,
+  IconUnorderedList,
 } from '@arco-design/web-react/icon';
 import MenuManagement from './menu';
+import OrderManage from './order';
 import './index.less';
 
 const { Header, Content, Sider } = Layout;
@@ -30,12 +32,12 @@ const Manage: React.FC = () => {
       label: '菜单管理',
       path: `${match.path}/menu`,
     },
-    // {
-    //   key: 'order',
-    //   icon: <IconSettings />,
-    //   label: '订单管理',
-    //   path: `${match.path}/order`,
-    // },
+    {
+      key: 'order',
+      icon: <IconUnorderedList />,
+      label: '订单管理',
+      path: `${match.path}/order`,
+    },
     // {
     //   key: 'user',
     //   icon: <IconUser />,
@@ -44,9 +46,7 @@ const Manage: React.FC = () => {
     // },
   ];
 
-  const currentKey =
-    menuItems.find((item) => location.pathname.includes(item.key))?.key ||
-    'menu';
+  const currentKey = menuItems.find((item) => location.pathname.includes(item.key))?.key || 'menu';
 
   const handleMenuClick = (key: string) => {
     const item = menuItems.find((item) => item.key === key);
@@ -74,7 +74,9 @@ const Manage: React.FC = () => {
             style={{ height: '100%', borderRight: 0 }}
           >
             {menuItems.map((item) => (
-              <Menu.Item key={item.key}>{item.label}</Menu.Item>
+              <Menu.Item key={item.key} icon={item.icon}>
+                {item.label}
+              </Menu.Item>
             ))}
           </Menu>
         </Sider>
@@ -95,6 +97,7 @@ const Manage: React.FC = () => {
           >
             <Switch>
               <Route path={`${match.path}/menu`} component={MenuManagement} />
+              <Route path={`${match.path}/order`} component={OrderManage} />
               <Route path={match.path} component={MenuManagement} />
             </Switch>
           </Content>
